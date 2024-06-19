@@ -2,9 +2,9 @@ import json.tool
 from flask import Flask
 from flask import request
 import sys
+import os
 from flask import jsonify
-
-sys.path.insert(0, '/home/alejandro/Documentos/Programacion/Proyectos/comiendohastaloscodos/backEnd/')
+sys.path.insert(0,os.path.dirname(os.path.dirname(__file__)))
 import model.cliente as cliente
 app = Flask(__name__)
 

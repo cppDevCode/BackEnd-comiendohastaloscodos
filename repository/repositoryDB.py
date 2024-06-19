@@ -30,6 +30,15 @@ class baseDeDatos:
         self.__private_cursor.execute('CREATE TABLE IF NOT EXISTS ' + nombreBaseDatos + '.tblPrecio (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, idPlato INT UNSIGNED, precio DECIMAL, vigencia DATE,	CONSTRAINT `fk_idPlato2` FOREIGN KEY (idPlato) REFERENCES tblPlatos (id) ON DELETE CASCADE ON UPDATE RESTRICT)')
         self.__private_cursor.execute('CREATE TABLE IF NOT EXISTS ' + nombreBaseDatos + '.tblVentas (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, idCliente INT UNSIGNED, factura VARCHAR(12), fecha DATE, idPlato INT UNSIGNED,cantidad INT UNSIGNED, valorUnitario DECIMAL, CONSTRAINT `fk_idCliente2` FOREIGN KEY (idCliente) REFERENCES tblClientes (id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT `fk_idPlato3` FOREIGN KEY (idPlato) REFERENCES tblPlatos (id) ON DELETE CASCADE ON UPDATE RESTRICT)')
         self.__private_cursor.execute('CREATE TABLE IF NOT EXISTS ' + nombreBaseDatos + '.tblEnvios (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, idVentas INT UNSIGNED, idCliente INT UNSIGNED,direccionEnvio VARCHAR(150), fechaEnvio DATE, CONSTRAINT `fk_idCliente3` FOREIGN KEY (idCliente) REFERENCES tblClientes (id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT `fk_idVentas` FOREIGN KEY (idVentas) REFERENCES tblVentas (id) ON DELETE CASCADE ON UPDATE RESTRICT)')
+    
+    def agregoRegistro(self, tabla, campos, valores):
+        try:
+            consulta ="INSERT INTO "+ tabla + " (" + campos + ") VALUES (" + valores + ")"
+            self.__private_cursor.execute(consulta)
+        except mariadb.Error as e: 
+                print(f"Error: {e}")
+        self.__private_coneccion.commit() 
+        print(f"Last Inserted ID: {self.__private_cursor.lastrowid}")
 
     def cierroConeccion(self):
         self.__private_coneccion.close()
