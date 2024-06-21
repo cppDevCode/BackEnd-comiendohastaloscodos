@@ -1,8 +1,12 @@
 import repository.repositoryDB as db
-import subprocess
+import controller.controladorFlask as fApp
 
-basedatos = db.baseDeDatos("USUARIO","CONTRASEÑA")
+
+basedatos = db.baseDeDatos("USUARIO","CONTRASENA")
 basedatos.creoBaseDeDatos("comiendohastaloscodos")
 basedatos.creoTablas("comiendohastaloscodos")
 basedatos.cierroConeccion()
-subprocess.run(["flask --app ./controller/controladorFlask.py run"],shell=True,)
+
+aplicacionFlask = fApp.AppFlask()
+if __name__ == '__main__':
+    aplicacionFlask.run()
