@@ -27,8 +27,8 @@ class AppFlask:
             if request.is_json:
                 clienteS.agregarCliente(request.get_json())
             else:
-                return (jsonify({"statusCode": 400,"error": "No se recibio un Archivo JSON"})), 400
-            return (jsonify({"statusCode": 200,"error": ""})), 200
+                return (jsonify({"statusCode": 490,"error": "No se recibio un Archivo JSON"})), 490
+            return (jsonify({"statusCode": 201,"error": ""})), 201
             
         
     def run (self):
