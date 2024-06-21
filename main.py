@@ -1,7 +1,7 @@
 import repository.repositoryDB as db
 import subprocess
 
-basedatos = db.baseDeDatos("###","XXX")
+basedatos = db.baseDeDatos("USUARIO","CONTRASEÑA")
 basedatos.creoBaseDeDatos("comiendohastaloscodos")
 basedatos.creoTablas("comiendohastaloscodos")
 basedatos.cierroConeccion()

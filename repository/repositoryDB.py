@@ -1,21 +1,20 @@
-import mariadb
+import mysql.connector as mysql
 import sys
 
 class baseDeDatos:
     __private_coneccion = None
     __private_cursor = None
 
-    def __init__(self, usuario, contrasena, hostDb="127.0.0.1", puerto=3306):
+    def __init__(self, usuario, contrasena, hostDb="127.0.0.1"):
         try:
-            self.__private_coneccion = mariadb.connect(
-                user = usuario,
-                password = contrasena,
+            self.__private_coneccion = mysql.connect(
                 host = hostDb,
-                port=puerto
+                user = usuario,
+                password = contrasena
             )
             self.__private_cursor = self.__private_coneccion.cursor()
-        except mariadb.Error as error:
-            return f"Error al conectar a la base de datos: {error}"
+        except mysql.Error as error:
+            print(f"Error al conectar a la base de datos: {error}")
             sys.exit(1)
     
 
@@ -35,7 +34,7 @@ class baseDeDatos:
         try:
             consulta ="INSERT INTO "+ tabla + " (" + campos + ") VALUES (" + valores + ")"
             self.__private_cursor.execute(consulta)
-        except mariadb.Error as e: 
+        except mysql.Error as e: 
                 print(f"Error: {e}")
         self.__private_coneccion.commit() 
         print(f"Last Inserted ID: {self.__private_cursor.lastrowid}")
