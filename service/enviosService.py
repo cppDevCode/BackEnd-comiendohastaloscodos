@@ -1,31 +1,14 @@
-import repository.repositoryDB as rDB
-from flask import jsonify
-from json import loads
 import service.serviceGenerica as serviceGenerica
 
 class EnviosService:
+    __private_servicio = serviceGenerica.MetodosBD()
 
     def getEnviosByIDCliente (self, idcliente):
-        baseDatos = rDB.baseDeDatos("USUARIO","CONTRASENA")    
-        resultado = baseDatos.getRegistroBy("tblEnvios",idcliente,"idCliente","comiendohastaloscodos")
-        if resultado == []:
-            return (jsonify({"statusCode": 499,"error": "No se encontraron resultados en la DB"})), 499
-        else:
-            for i in resultado:
-                jsonFinal = "{"
-                jsonFinal += '"id":' + i[0] + ','
-                jsonFinal += '"idVentas":' + i[1] + ','
-                jsonFinal += '"direccionEnvio":"' + i[3] +'",'
-                jsonFinal += '"fechaEnvio:' + i[4]
-                jsonFinal = "},"
-            jsonFinal = jsonFinal[:-1]
-        baseDatos.cierroConeccion()
-        return (loads(jsonFinal)), 200
+        return self.__private_servicio.getItemsBD("comiendohastaloscodos","USUARIO","CONTRASENA","tblEnvios",["id","idVentas","idCliente","direccionEnvio","fechaEnvio"],
+                                           idcliente,"idCliente")
     
     def postEnvios (self, envios):
-        baseDatos = rDB.baseDeDatos("USUARIO","CONTRASENA")
-        valores = []
-        for vEnvio in envios:
-            valores.append((vEnvio["idVentas"],vEnvio["idCliente"],vEnvio["direccionEnvio"],vEnvio["fechaEnvio"]))
-        baseDatos.agregoRegistros("tblEnvios","`idVentas`,`idCliente`,`direccionEnvio`,`fechaEnvio`",valores,4,"comiendohastaloscodos")
-        baseDatos.cierroConeccion()
+        self.__private_servicio.agregarItemsABD("comiendohastaloscodos","USUARIO","CONTRASENA","tblEnvios","`idVentas`,`idCliente`,`direccionEnvio`,`fechaEnvio`",
+                                                ["idVentas","idCliente","direccionEnvio","fechaEnvio"],envios)
+    def borrarEnvioByID(self, idEnvio):
+        return self.__private_servicio.borrarById("comiendohastaloscodos","USUARIO","CONTRASENA","tblEnvios",[idEnvio])

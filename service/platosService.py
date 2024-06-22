@@ -9,5 +9,5 @@ class PlatosService:
  
     def getPlatoByID(self,idPlato):
         return self.__private_servicio.getItemsBD("comiendohastaloscodos","USUARIO","CONTRASENA","tblPlatos",
-                                                  ["id","nombre","descripcion","imagen","tipo"],idPlato)
+                                                  ["id","nombre","descripcion","imagen","tipo"],idPlato,"id")
 

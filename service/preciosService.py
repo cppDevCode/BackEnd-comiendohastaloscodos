@@ -1,16 +1,11 @@
-import repository.repositoryDB as rDB
-from flask import jsonify
-from json import loads
+import service.serviceGenerica as serviceGenerica
 
 class PreciosService:
+    __private_servicio = serviceGenerica.MetodosBD()
+
     def agregarPrecio (self, precios):
-        valores = []
-        baseDatos = rDB.baseDeDatos("USUARIO","CONTRASENA")
-        
-        for vPlatos in platos:
-            valores.append((vPlatos["nombre"],vPlatos["descripcion"],vPlatos["imagen"],vPlatos["tipo"]))
-        
-        baseDatos.agregoRegistros("tblPlatos",
-                                  "`nombre`,`descripcion`,`imagen`,`tipo`",
-                                  valores,4,"comiendohastaloscodos")    
-        baseDatos.cierroConeccion()
+        self.__private_servicio.agregarItemsABD("comiendohastaloscodos","USUARIO","CONTRASENA","tblPrecio","`idPlato`,`precio`,`vigencia`",
+                                                ["idPlato","precio","vigencia"],precios)
+    
+    def getPrecioByIdPlato (self,idPlato):
+        return self.__private_servicio.getItemsBD("comiendohastaloscodos","USUARIO","CONTRASENA","tblPrecio",["id","idPlato","precio","vigencia"],[idPlato],"idPlato")

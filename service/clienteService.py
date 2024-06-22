@@ -12,5 +12,8 @@ class ClienteService:
     def getCliente (self, id):
         return self.__private_servicio.getItemsBD("comiendohastaloscodos","USUARIO","CONTRASENA","tblClientes",["id","nombre","apellido",
                                             "email","telefono","direccion","piso","departamento","ciudad","provincia","pais","carnivoro",
-                                            "celiaco","vegano","vegetariano","contrasena"],id)
-     
+                                            "celiaco","vegano","vegetariano","contrasena"],id,"id")
+
+    def deleteCliente(self,id):
+        print(id)
+        return self.__private_servicio.borrarById("comiendohastaloscodos","USUARIO","CONTRASENA","tblClientes",[id]) 
