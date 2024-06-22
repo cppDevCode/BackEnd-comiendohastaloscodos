@@ -21,7 +21,7 @@ class ClienteService:
 
     def getCliente (self, id):
         baseDatos = rDB.baseDeDatos("USUARIO","CONTRASENA")
-        resultado = baseDatos.getRegistroByID("tblClientes",id,"id","comiendohastaloscodos")
+        resultado = baseDatos.getRegistroBy("tblClientes",id,"id","comiendohastaloscodos")
         if resultado == []:
             return (jsonify({"statusCode": 400,"error": "No se encontraron resultados en la DB"})), 400
         else:
@@ -44,6 +44,5 @@ class ClienteService:
                 jsonFinal += '"vegetariano":' + str(i[14])+ ","
                 jsonFinal += '"contrasena":"' + i[15] + '"'
             jsonFinal += "}"
-            print(jsonFinal)
-            return (loads(jsonFinal)), 200
         baseDatos.cierroConeccion()
+        return (loads(jsonFinal)), 200

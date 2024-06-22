@@ -40,7 +40,7 @@ class baseDeDatos:
         self.__private_coneccion.commit() 
         print(f"Registros Agregados: {self.__private_cursor.rowcount}")
 
-    def getRegistroByID(self, tabla, nroID,columna,nombreBaseDatos):
+    def getRegistroBy(self, tabla, nroID,columna,nombreBaseDatos):
         self.__private_cursor.execute("USE " + nombreBaseDatos)
         consulta = "SELECT * FROM " + tabla + " WHERE " + columna +"=%s"
         self.__private_cursor.execute(consulta, nroID)
