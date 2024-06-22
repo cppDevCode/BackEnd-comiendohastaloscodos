@@ -9,3 +9,6 @@ class StockService:
     def agregarStock (self,stock):
         self.__private_servicio.agregarItemsABD("comiendohastaloscodos","USUARIO","CONTRASENA","tblStock","`idPlato`,`cantidad`",
                                                 ["idPlato","cantidad"],stock)
+    
+    def borrarStockByID(self,idStock):
+        return self.__private_servicio.borrarById("comiendohastaloscodos","USUARIO","CONTRASENA","tblStock",[idStock])

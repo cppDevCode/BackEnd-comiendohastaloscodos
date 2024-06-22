@@ -57,7 +57,7 @@ class AppFlask:
             idEnvio = request.args.get('borrarid',default=None,type=int)
             return enviosS.borrarEnvioByID(idEnvio)
         
-    @__private_app.route('/platos',methods=['GET','POST'])
+    @__private_app.route('/platos',methods=['GET','POST','DELETE'])
     def platos():
         platosS = PlatosService.PlatosService()
         if request.method == 'GET':
@@ -69,8 +69,12 @@ class AppFlask:
                 platosS.agregoPlato(request.get_json())
             else:return (jsonify({"statusCode": 490,"error": "No se recibio un Archivo JSON"})), 490
             return (jsonify({"statusCode": 201,"error": ""})), 201
+        elif request.method == 'DELETE':
+            #127.0.0.1/platos?borrarid=150
+            idPlato = request.args.get('borrarid',default=None,type=int)
+            return platosS.borrarPlatoById(idPlato)
     
-    @__private_app.route('/precios',methods=['GET','POST'])
+    @__private_app.route('/precios',methods=['GET','POST','DELETE'])
     def precios():
         preciosS = PreciosService.PreciosService()
         if request.method == 'GET':
@@ -83,6 +87,10 @@ class AppFlask:
             else:
                 return (jsonify({"statusCode": 490,"error": "No se recibio un Archivo JSON"})), 490
             return (jsonify({"statusCode": 201,"error": ""})), 201
+        elif request.method == 'DELETE':
+            #127.0.0.1/precios?borrarid=150
+            idPrecio = request.args.get('borrarid',default=None,type=int)
+            return preciosS.borrarPrecioByID(idPrecio)
     
     @__private_app.route('/ventas',methods=['GET','POST','DELETE'])
     def ventas():
@@ -103,7 +111,7 @@ class AppFlask:
             return ventaS.borrarVentaByID(idVenta)
 
 
-    @__private_app.route('/reservas',methods=['GET','POST'])
+    @__private_app.route('/reservas',methods=['GET','POST','DELETE'])
     def reservas():
         reservaS = ReservaService.ReservaService()
         if request.method == 'GET':
@@ -116,8 +124,12 @@ class AppFlask:
             else:
                 return (jsonify({"statusCode": 490,"error": "No se recibio un Archivo JSON"})), 490
             return (jsonify({"statusCode": 201,"error": ""})), 201
+        elif request.method == 'DELETE':
+            #127.0.0.1/reservas?borrarid=150
+            idReserva = request.args.get('borrarid',default=None,type=int)
+            return reservaS.borrarReservaByID(idReserva)
         
-    @__private_app.route('/stock',methods=['GET','POST'])
+    @__private_app.route('/stock',methods=['GET','POST','DELETE'])
     def stock():
         stockS = StockService.StockService()
         if request.method == 'GET':
@@ -130,6 +142,10 @@ class AppFlask:
             else:
                 return (jsonify({"statusCode": 490,"error": "No se recibio un Archivo JSON"})), 490
             return (jsonify({"statusCode": 201,"error": ""})), 201
+        elif request.method == 'DELETE':
+            #127.0.0.1/stock?borrarid=150
+            idStock = request.args.get('borrarid',default=None,type=int)
+            return stockS.borrarStockByID(idStock)
         
     def run (self):
         self.__private_app.run()

@@ -9,3 +9,6 @@ class PreciosService:
     
     def getPrecioByIdPlato (self,idPlato):
         return self.__private_servicio.getItemsBD("comiendohastaloscodos","USUARIO","CONTRASENA","tblPrecio",["id","idPlato","precio","vigencia"],[idPlato],"idPlato")
+    
+    def borrarPrecioByID (self,idPrecio):
+        return self.__private_servicio.borrarById("comiendohastaloscodos","USUARIO","CONTRASENA","tblPrecio",[idPrecio])

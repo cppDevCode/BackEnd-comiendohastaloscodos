@@ -10,4 +10,7 @@ class PlatosService:
     def getPlatoByID(self,idPlato):
         return self.__private_servicio.getItemsBD("comiendohastaloscodos","USUARIO","CONTRASENA","tblPlatos",
                                                   ["id","nombre","descripcion","imagen","tipo"],idPlato,"id")
+    
+    def borrarPlatoById(self,idPlato):
+        return self.__private_servicio.borrarById("comiendohastaloscodos","USUARIO","CONTRASENA","tblPlatos",[idPlato])
 
