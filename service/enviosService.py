@@ -1,11 +1,12 @@
 import repository.repositoryDB as rDB
 from flask import jsonify
 from json import loads
+import service.serviceGenerica as serviceGenerica
 
 class EnviosService:
 
     def getEnviosByIDCliente (self, idcliente):
-        baseDatos = rDB.baseDeDatos("estilo3d","golpea1987")    
+        baseDatos = rDB.baseDeDatos("USUARIO","CONTRASENA")    
         resultado = baseDatos.getRegistroBy("tblEnvios",idcliente,"idCliente","comiendohastaloscodos")
         if resultado == []:
             return (jsonify({"statusCode": 499,"error": "No se encontraron resultados en la DB"})), 499
@@ -22,10 +23,9 @@ class EnviosService:
         return (loads(jsonFinal)), 200
     
     def postEnvios (self, envios):
-        baseDatos = rDB.baseDeDatos("estilo3d","golpea1987")
+        baseDatos = rDB.baseDeDatos("USUARIO","CONTRASENA")
         valores = []
         for vEnvio in envios:
             valores.append((vEnvio["idVentas"],vEnvio["idCliente"],vEnvio["direccionEnvio"],vEnvio["fechaEnvio"]))
         baseDatos.agregoRegistros("tblEnvios","`idVentas`,`idCliente`,`direccionEnvio`,`fechaEnvio`",valores,4,"comiendohastaloscodos")
         baseDatos.cierroConeccion()
-        

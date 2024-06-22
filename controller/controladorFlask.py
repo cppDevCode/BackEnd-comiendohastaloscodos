@@ -58,6 +58,10 @@ class AppFlask:
                 platosS.agregoPlato(request.get_json())
             else:return (jsonify({"statusCode": 490,"error": "No se recibio un Archivo JSON"})), 490
             return (jsonify({"statusCode": 201,"error": ""})), 201
+    
+    #@__private_app.route('/precios',methods=['GET','POST'])
+    #def precios():
+
         
     def run (self):
         self.__private_app.run()
