@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS, cross_origin
 from flask import request
 from sys import path
 from os import path as osPath
@@ -17,6 +18,9 @@ from json import JSONEncoder as jsonE
 
 class AppFlask:
     __private_app =  Flask(__name__)
+    __private_cors = CORS(__private_app)
+    __private_app.config['CORS_HEADERS'] = 'Content-Type'
+
 
     @__private_app.route('/cliente', methods=['GET','POST','DELETE'])
     def cliente():
@@ -57,13 +61,19 @@ class AppFlask:
             idEnvio = request.args.get('borrarid',default=None,type=int)
             return enviosS.borrarEnvioByID(idEnvio)
         
-    @__private_app.route('/platos',methods=['GET','POST','DELETE'])
+    @__private_app.route('/platos',methods=['GET','POST','DELETE','PUT'])
+    @cross_origin()
     def platos():
         platosS = PlatosService.PlatosService()
         if request.method == 'GET':
             #127.0.0.1/envios?idplato=150
             idPlato = request.args.get('idplato',default=None,type=int)
-            return platosS.getPlatoByID([idPlato])
+            if idPlato != None:
+                return platosS.getPlatoByID([idPlato])
+            else:
+              traerTodos = request.args.get('traertodos',default=None,type=int)
+              if traerTodos == 1:
+                  return platosS.listar()  
         elif request.method == 'POST':
             if request.is_json:
                 platosS.agregoPlato(request.get_json())
@@ -73,14 +83,25 @@ class AppFlask:
             #127.0.0.1/platos?borrarid=150
             idPlato = request.args.get('borrarid',default=None,type=int)
             return platosS.borrarPlatoById(idPlato)
+        elif request.method == 'PUT':
+            #127.0.0.1/platos?editarid=150
+            idPlato = request.args.get('editarid',default=None,type=int)
+            return platosS.modificarByID(idPlato,request.get_json())
+            
     
     @__private_app.route('/precios',methods=['GET','POST','DELETE'])
+    @cross_origin()
     def precios():
         preciosS = PreciosService.PreciosService()
         if request.method == 'GET':
             #127.0.0.1/precios?idplato=150
             idPlato = request.args.get('idplato',default=None,type=int)
-            return preciosS.getPrecioByIdPlato(idPlato)
+            if idPlato != None:
+                return preciosS.getPrecioByIdPlato(idPlato)
+            else:
+              traerTodos = request.args.get('traertodos',default=None,type=int)
+              if traerTodos == 1:
+                  return preciosS.listar()
         elif request.method == 'POST':
             if request.is_json:
                 preciosS.agregarPrecio(request.get_json())

@@ -17,3 +17,6 @@ class ClienteService:
     def deleteCliente(self,id):
         print(id)
         return self.__private_servicio.borrarById("comiendohastaloscodos","USUARIO","CONTRASENA","tblClientes",[id]) 
+    
+    
+
