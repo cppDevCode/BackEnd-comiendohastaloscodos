@@ -12,3 +12,7 @@ class StockService:
     
     def borrarStockByID(self,idStock):
         return self.__private_servicio.borrarById("comiendohastaloscodos","USUARIO","CONTRASENA","tblStock",[idStock])
+    
+    def editarStockByID(self,id,datos):
+        modificaciones = "idPlato=" + str(datos["idPlato"]) + ", cantidad=" + str(datos["cantidad"])
+        return self.__private_servicio.modificarByID("comiendohastaloscodos","tblStock","USUARIO","CONTRASENA",id,modificaciones)

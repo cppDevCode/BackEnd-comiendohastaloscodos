@@ -84,6 +84,7 @@ class MetodosBD:
     def modificarByID(self,nombreBaseDatos,tabla,usuario,contrasena, id, modificaciones):
         repositorio = rDB.baseDeDatos(usuario,contrasena)
         resultado = repositorio.editarRegistroByID(nombreBaseDatos,tabla,modificaciones,[id])
+        
         if resultado == None:
             repositorio.cierroConeccion()
             return (jsonify({"statusCode": 200,"error": ""})), 200

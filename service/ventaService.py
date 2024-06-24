@@ -13,3 +13,8 @@ class VentaService:
     
     def borrarVentaByID(self,idVenta):
         return self.__private_servicio.borrarById("comiendohastaloscodos","USUARIO","CONTRASENA","tblVentas",[idVenta])
+    
+    def editarVentaByID(self,id,datos):
+        modificaciones = "idCliente=" + str(datos["idCliente"]) + ",factura='" + datos["factura"] + "',fecha='" + datos["fecha"] \
+                        + "',idPlato=" + str(datos["idPlato"]) + ",cantidad=" + str(datos["cantidad"]) + ",valorUnitario=" + str(datos["valorUnitario"])
+        return self.__private_servicio.modificarByID("comiendohastaloscodos","tblVentas","USUARIO","CONTRASENA",id,modificaciones)

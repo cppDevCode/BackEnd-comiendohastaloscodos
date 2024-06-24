@@ -12,3 +12,8 @@ class EnviosService:
                                                 ["idVentas","idCliente","direccionEnvio","fechaEnvio"],envios)
     def borrarEnvioByID(self, idEnvio):
         return self.__private_servicio.borrarById("comiendohastaloscodos","USUARIO","CONTRASENA","tblEnvios",[idEnvio])
+    
+    def editarEnvioByID(self,idEnvio,datos):
+        modificaciones = "idCliente=" + str(datos["idCliente"]) + ",direccionEnvio='" + datos["direccionEnvio"] + "',fechaEnvio='" \
+                        + datos["fechaEnvio"] + "'"
+        return self.__private_servicio.modificarByID("comiendohastaloscodos","tblEnvios","USUARIO","CONTRASENA",idEnvio,modificaciones)

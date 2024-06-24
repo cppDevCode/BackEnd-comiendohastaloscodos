@@ -22,7 +22,7 @@ class AppFlask:
     __private_app.config['CORS_HEADERS'] = 'Content-Type'
 
 
-    @__private_app.route('/cliente', methods=['GET','POST','DELETE'])
+    @__private_app.route('/cliente', methods=['GET','POST','DELETE','PUT'])
     def cliente():
         '''
             Metodo GET, requiere de variable idcliente y retorna el cliente con ese ID, en caso de ser correcto devuelve codigo 200, caso contrario 403
@@ -43,8 +43,12 @@ class AppFlask:
             #127.0.0.1/cliente?borrarid=150
             idCliente = request.args.get('borrarid',default=None,type=int)
             return clienteS.deleteCliente(idCliente)
+        elif request.method == 'PUT':
+            #127.0.0.1/cliente?editarid=150
+            idCliente = request.args.get('editarid',default=None,type=int)
+            return clienteS.modificarByID(idCliente,request.get_json())
 
-    @__private_app.route('/envios',methods=['GET','POST','DELETE'])
+    @__private_app.route('/envios',methods=['GET','POST','DELETE','PUT'])
     def envios():
         enviosS = EnviosService.EnviosService()
         if request.method == 'GET':
@@ -60,6 +64,10 @@ class AppFlask:
             #127.0.0.1/envios?borrarid=150
             idEnvio = request.args.get('borrarid',default=None,type=int)
             return enviosS.borrarEnvioByID(idEnvio)
+        elif request.method == 'PUT':
+            #127.0.0.1/envios?editarid=150
+            idEnvio = request.args.get('editarid',default=None,type=int)
+            return enviosS.editarEnvioByID(idEnvio,request.get_json())
         
     @__private_app.route('/platos',methods=['GET','POST','DELETE','PUT'])
     @cross_origin()
@@ -89,7 +97,7 @@ class AppFlask:
             return platosS.modificarByID(idPlato,request.get_json())
             
     
-    @__private_app.route('/precios',methods=['GET','POST','DELETE'])
+    @__private_app.route('/precios',methods=['GET','POST','DELETE','PUT'])
     @cross_origin()
     def precios():
         preciosS = PreciosService.PreciosService()
@@ -112,8 +120,12 @@ class AppFlask:
             #127.0.0.1/precios?borrarid=150
             idPrecio = request.args.get('borrarid',default=None,type=int)
             return preciosS.borrarPrecioByID(idPrecio)
+        elif request.method == 'PUT':
+            #127.0.0.1/precios?editarid=150
+            idPrecio = request.args.get('editarid',default=None,type=int)
+            return preciosS.editarPrecioByID(idPrecio,request.get_json())
     
-    @__private_app.route('/ventas',methods=['GET','POST','DELETE'])
+    @__private_app.route('/ventas',methods=['GET','POST','DELETE','PUT'])
     def ventas():
         ventaS = VentaService.VentaService()
         if request.method == 'GET':
@@ -130,9 +142,13 @@ class AppFlask:
             #127.0.0.1/vetans?borrarid=150
             idVenta = request.args.get('borrarid',default=None,type=int)
             return ventaS.borrarVentaByID(idVenta)
+        elif request.method == 'PUT':
+            #127.0.0.1/ventas?editarid=150
+            idVenta = request.args.get('editarid',default=None,type=int)
+            return ventaS.editarVentaByID(idVenta,request.get_json())
 
 
-    @__private_app.route('/reservas',methods=['GET','POST','DELETE'])
+    @__private_app.route('/reservas',methods=['GET','POST','DELETE','PUT'])
     def reservas():
         reservaS = ReservaService.ReservaService()
         if request.method == 'GET':
@@ -149,8 +165,12 @@ class AppFlask:
             #127.0.0.1/reservas?borrarid=150
             idReserva = request.args.get('borrarid',default=None,type=int)
             return reservaS.borrarReservaByID(idReserva)
+        elif request.method == 'PUT':
+            #127.0.0.1/reservas?editarid=150
+            idReserva = request.args.get('editarid',default=None,type=int)
+            return reservaS.editarReservaByID(idReserva,request.get_json())
         
-    @__private_app.route('/stock',methods=['GET','POST','DELETE'])
+    @__private_app.route('/stock',methods=['GET','POST','DELETE','PUT'])
     def stock():
         stockS = StockService.StockService()
         if request.method == 'GET':
@@ -167,6 +187,10 @@ class AppFlask:
             #127.0.0.1/stock?borrarid=150
             idStock = request.args.get('borrarid',default=None,type=int)
             return stockS.borrarStockByID(idStock)
+        elif request.method == 'PUT':
+            #127.0.0.1/stock?editarid=150
+            idStock = request.args.get('editarid',default=None,type=int)
+            return stockS.editarStockByID(idStock,request.get_json())
         
     def run (self):
         self.__private_app.run()
