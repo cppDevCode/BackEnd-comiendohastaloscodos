@@ -1,16 +1,21 @@
 import mysql.connector as mysql
 from sys import exit
+from json import load
 
 class baseDeDatos:
     __private_coneccion = None
     __private_cursor = None
+    __private_datosConeccion = None
 
-    def __init__(self, usuario, contrasena, hostDb="127.0.0.1"):
+
+    def __init__(self, hostDb="127.0.0.1"):
         try:
+            with open("./setting.json",'r') as archivo:
+                self.__private_datosConeccion = load(archivo)
             self.__private_coneccion = mysql.connect(
                 host = hostDb,
-                user = usuario,
-                password = contrasena
+                user = self.__private_datosConeccion["usuario"],
+                password = self.__private_datosConeccion["contrasena"]
             )
             self.__private_cursor = self.__private_coneccion.cursor()
         except mysql.Error as error:
@@ -40,10 +45,10 @@ class baseDeDatos:
         self.__private_coneccion.commit() 
         print(f"Registros Agregados: {self.__private_cursor.rowcount}")
 
-    def getRegistroBy(self, tabla, nroID,columna,nombreBaseDatos):
+    def getRegistroBy(self, tabla,celdas, nroID,columna,nombreBaseDatos):
         self.__private_cursor.execute("USE " + nombreBaseDatos)
-        consulta = "SELECT * FROM " + tabla + " WHERE " + columna +"=%s"
-        self.__private_cursor.execute(consulta, nroID)
+        consulta = "SELECT "+ celdas +" FROM " + tabla + " WHERE " + columna +"=%s"
+        self.__private_cursor.execute(consulta,nroID)
         return self.__private_cursor.fetchall()
     
     def editarRegistroByID(self,nombreBaseDatos, tabla, modificaciones, id):

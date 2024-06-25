@@ -5,9 +5,9 @@ import datetime
 
 class MetodosBD:
         
-    def agregarItemsABD(self, baseDeDatos,usuario, contrasena,tabla,campos,llaves,items):
+    def agregarItemsABD(self, baseDeDatos,tabla,campos,llaves,items):
         valores = []
-        baseDatos = rDB.baseDeDatos(usuario,contrasena)
+        baseDatos = rDB.baseDeDatos()
         
         for variable in items:
             lista = ()
@@ -17,9 +17,9 @@ class MetodosBD:
         baseDatos.agregoRegistros(tabla,campos,valores,len(llaves),baseDeDatos)    
         baseDatos.cierroConeccion()
 
-    def getItemsBD(self,baseDeDatos,usuario, contrasena,tabla,llaves,valorBuscado,columnaABuscar):
-        baseDatos = rDB.baseDeDatos(usuario,contrasena)
-        resultado = baseDatos.getRegistroBy(tabla,valorBuscado,columnaABuscar,baseDeDatos)
+    def getItemsBD(self,baseDeDatos,tabla,celdas,llaves,valorBuscado,columnaABuscar):
+        baseDatos = rDB.baseDeDatos()
+        resultado = baseDatos.getRegistroBy(tabla,celdas,valorBuscado,columnaABuscar,baseDeDatos)
         if resultado == []:
             baseDatos.cierroConeccion()
             return (jsonify({"statusCode": 499,"error": "No se encontraron resultados en la DB"})), 499
@@ -44,8 +44,8 @@ class MetodosBD:
         baseDatos.cierroConeccion()
         return (jsonFinal), 200
     
-    def borrarById(self,nomBaseDatos,usuario,contrasena,tabla,id):
-        baseDatos = rDB.baseDeDatos(usuario,contrasena)
+    def borrarById(self,nomBaseDatos,tabla,id):
+        baseDatos = rDB.baseDeDatos()
         resultado = baseDatos.borrarRegistroByID(tabla,id,nomBaseDatos)
         if resultado == "":
             baseDatos.cierroConeccion()
@@ -54,8 +54,8 @@ class MetodosBD:
             baseDatos.cierroConeccion()
             return (jsonify({"statusCode": 499,"error": str(resultado)})), 499
         
-    def listar(self,nomBaseDatos,usuario,contrasena,tabla,campos,llaves):
-        baseDatos = rDB.baseDeDatos(usuario,contrasena)
+    def listar(self,nomBaseDatos,tabla,campos,llaves):
+        baseDatos = rDB.baseDeDatos()
         resultado = baseDatos.listar(tabla,nomBaseDatos,campos)
         if resultado == "":
             baseDatos.cierroConeccion()
@@ -81,8 +81,8 @@ class MetodosBD:
             baseDatos.cierroConeccion()
             return (jsonFinal), 200
     
-    def modificarByID(self,nombreBaseDatos,tabla,usuario,contrasena, id, modificaciones):
-        repositorio = rDB.baseDeDatos(usuario,contrasena)
+    def modificarByID(self,nombreBaseDatos,tabla, id, modificaciones):
+        repositorio = rDB.baseDeDatos()
         resultado = repositorio.editarRegistroByID(nombreBaseDatos,tabla,modificaciones,[id])
         
         if resultado == None:

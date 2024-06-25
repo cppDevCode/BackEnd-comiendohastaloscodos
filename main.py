@@ -6,7 +6,7 @@ import controller.controladorFlask as fApp
 MODULO PRINCIPAL DE APLICACION
 CREO LA BASE DE DATOS Y LAS TABLAS EN CASO DE NO EXISTIR
 '''
-basedatos = db.baseDeDatos("USUARIO","CONTRASENA")
+basedatos = db.baseDeDatos()
 basedatos.creoBaseDeDatos("comiendohastaloscodos")
 basedatos.creoTablas("comiendohastaloscodos")
 basedatos.cierroConeccion()

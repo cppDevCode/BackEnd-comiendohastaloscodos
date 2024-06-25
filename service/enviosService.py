@@ -4,16 +4,16 @@ class EnviosService:
     __private_servicio = serviceGenerica.MetodosBD()
 
     def getEnviosByIDCliente (self, idcliente):
-        return self.__private_servicio.getItemsBD("comiendohastaloscodos","USUARIO","CONTRASENA","tblEnvios",["id","idVentas","idCliente","direccionEnvio","fechaEnvio"],
+        return self.__private_servicio.getItemsBD("comiendohastaloscodos","tblEnvios",["id","idVentas","idCliente","direccionEnvio","fechaEnvio"],
                                            idcliente,"idCliente")
     
     def postEnvios (self, envios):
-        self.__private_servicio.agregarItemsABD("comiendohastaloscodos","USUARIO","CONTRASENA","tblEnvios","`idVentas`,`idCliente`,`direccionEnvio`,`fechaEnvio`",
+        self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblEnvios","`idVentas`,`idCliente`,`direccionEnvio`,`fechaEnvio`",
                                                 ["idVentas","idCliente","direccionEnvio","fechaEnvio"],envios)
     def borrarEnvioByID(self, idEnvio):
-        return self.__private_servicio.borrarById("comiendohastaloscodos","USUARIO","CONTRASENA","tblEnvios",[idEnvio])
+        return self.__private_servicio.borrarById("comiendohastaloscodos","tblEnvios",[idEnvio])
     
     def editarEnvioByID(self,idEnvio,datos):
         modificaciones = "idCliente=" + str(datos["idCliente"]) + ",direccionEnvio='" + datos["direccionEnvio"] + "',fechaEnvio='" \
                         + datos["fechaEnvio"] + "'"
-        return self.__private_servicio.modificarByID("comiendohastaloscodos","tblEnvios","USUARIO","CONTRASENA",idEnvio,modificaciones)
+        return self.__private_servicio.modificarByID("comiendohastaloscodos","tblEnvios",idEnvio,modificaciones)

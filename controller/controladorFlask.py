@@ -12,8 +12,7 @@ import service.preciosService as PreciosService
 import service.ventaService as VentaService
 import service.reservaService as ReservaService
 import service.stockService as StockService
-from json import JSONEncoder as jsonE
-
+from json import loads
 
 
 class AppFlask:
@@ -32,10 +31,14 @@ class AppFlask:
         if request.method == 'GET':
             #127.0.0.1/cliente?idcliente=150
             idCliente = request.args.get('idcliente',default=None,type=int)
-            return clienteS.getCliente([idCliente])
+            if idCliente != None:
+                return clienteS.getCliente([idCliente])
         elif request.method == 'POST':
             if request.is_json:
-                clienteS.agregarCliente(request.get_json())
+                if type(request.get_json()) == dict:
+                    clienteS.agregarCliente([request.get_json()])   
+                else:
+                    clienteS.agregarCliente(request.get_json())
             else:
                 return (jsonify({"statusCode": 490,"error": "No se recibio un Archivo JSON"})), 490
             return (jsonify({"statusCode": 201,"error": ""})), 201
@@ -191,6 +194,13 @@ class AppFlask:
             #127.0.0.1/stock?editarid=150
             idStock = request.args.get('editarid',default=None,type=int)
             return stockS.editarStockByID(idStock,request.get_json())
+
+    @__private_app.route('/loguear',methods=['GET'])
+    def login():
+        clienteS = clienteService.ClienteService()
+        if request.is_json:
+            datos = request.get_json()
+            return clienteS.validoLogin(datos["usuario"],datos["contrasena"])
         
     def run (self):
         self.__private_app.run()
