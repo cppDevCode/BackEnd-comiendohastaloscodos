@@ -195,12 +195,12 @@ class AppFlask:
             idStock = request.args.get('editarid',default=None,type=int)
             return stockS.editarStockByID(idStock,request.get_json())
 
-    @__private_app.route('/loguear',methods=['GET'])
-    def login():
+    @__private_app.route('/loguear',methods=['POST'])
+    def login():    
         clienteS = clienteService.ClienteService()
-        if request.is_json:
-            datos = request.get_json()
-            return clienteS.validoLogin(datos["usuario"],datos["contrasena"])
+        datos = request.get_json()
+        return clienteS.validoLogin(datos["usuario"],datos["contrasena"])
+        
         
     def run (self):
         self.__private_app.run()

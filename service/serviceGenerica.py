@@ -40,7 +40,8 @@ class MetodosBD:
                 aux = aux[:-1]
                 aux += "}"
                 jsonFinal.append(loads(aux))
-            
+        if len(jsonFinal) == 1:
+            jsonFinal = jsonFinal[0]    
         baseDatos.cierroConeccion()
         return (jsonFinal), 200
     
