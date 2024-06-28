@@ -22,6 +22,7 @@ class AppFlask:
 
 
     @__private_app.route('/cliente', methods=['GET','POST','DELETE','PUT'])
+    
     def cliente():
         '''
             Metodo GET, requiere de variable idcliente y retorna el cliente con ese ID, en caso de ser correcto devuelve codigo 200, caso contrario 403

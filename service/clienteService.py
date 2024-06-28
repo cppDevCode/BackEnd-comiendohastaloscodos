@@ -19,8 +19,8 @@ class ClienteService:
         resultado=self.__private_servicio.getItemsBD("comiendohastaloscodos","tblClientes","`id`,`email`,`contrasena`,`nombre`",["id","email","contrasena","nombre"],[email],"email")
         if resultado[1] == 499:
             return (jsonify({"statusCode": 490,"error":"Usuario/Contraseña Erroneo"})), 490
-        elif resultado[0][0]["contrasena"] == contrasena:
-            return (jsonify({"statusCode": 200,"usuario":resultado[0][0]["nombre"],"id":resultado[0][0]["id"]})), 200
+        elif resultado[0]["contrasena"] == contrasena:
+            return (jsonify({"statusCode": 200,"usuario":resultado[0]["nombre"],"id":resultado[0]["id"]})), 200
         else:
             return (jsonify({"statusCode": 490,"error":"Usuario/Contraseña Erroneo"})), 490
 
