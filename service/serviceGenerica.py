@@ -1,13 +1,18 @@
-import repository.repositoryDB as rDB
+#Importacion de libs
 from flask import jsonify
 from json import loads
-import datetime
+from datetime import date
+#Importacion de capa de coneccion a BBDD
+import repository.repositoryDB as rDB
+
 
 class MetodosBD:
-        
+    '''
+    Clase que maneja los metodos comunes utilizados por toda la capa de servicios
+    '''    
     def agregarItemsABD(self, baseDeDatos,tabla,campos,llaves,items):
         valores = []
-        baseDatos = rDB.baseDeDatos()
+        baseDatos = rDB.baseDeDatos() #Instancio la clase de la capa de coneccion a BBDD
         
         for variable in items:
             lista = ()
@@ -18,19 +23,20 @@ class MetodosBD:
         #baseDatos.cierroConeccion()
 
     def getItemsBD(self,baseDeDatos,tabla,celdas,llaves,valorBuscado,columnaABuscar):
-        baseDatos = rDB.baseDeDatos()
+        baseDatos = rDB.baseDeDatos() #Instancio la clase de la capa de coneccion a BBDD
         resultado = baseDatos.getRegistroBy(tabla,celdas,valorBuscado,columnaABuscar,baseDeDatos)
         if resultado == []:
             baseDatos.cierroConeccion()
             return (jsonify({"statusCode": 499,"error": "No se encontraron resultados en la DB"})), 499
         else:
+            #Genero Str JSON para el envio
             jsonFinal = []
             for i in resultado:
                 aux = "{"
                 nro = 0
                 for key in llaves:
                     try:
-                        if isinstance(i[nro],datetime.date):
+                        if isinstance(i[nro],date):
                             aux += '"'+ key +'": "' + str(i[nro])+ '",'
                         else:
                             aux += '"'+ key +'": "' + i[nro]+ '",'
@@ -39,6 +45,7 @@ class MetodosBD:
                     nro += 1
                 aux = aux[:-1]
                 aux += "}"
+                #Deserializo el str en un python Object
                 jsonFinal.append(loads(aux))
         if len(jsonFinal) == 1:
             jsonFinal = jsonFinal[0]    
@@ -69,7 +76,7 @@ class MetodosBD:
                 nro = 0
                 for key in llaves:
                     try:
-                        if isinstance(i[nro],datetime.date):
+                        if isinstance(i[nro],date):
                             aux += '"'+ key +'": "' + str(i[nro])+ '",'
                         else:
                             aux += '"'+ key +'": "' + i[nro]+ '",'
