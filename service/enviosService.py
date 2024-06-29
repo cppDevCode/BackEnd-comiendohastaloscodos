@@ -8,7 +8,7 @@ class EnviosService:
                                            idcliente,"idCliente")
     
     def postEnvios (self, envios):
-        self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblEnvios","`idVentas`,`idCliente`,`direccionEnvio`,`fechaEnvio`",
+        return self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblEnvios","`idVentas`,`idCliente`,`direccionEnvio`,`fechaEnvio`",
                                                 ["idVentas","idCliente","direccionEnvio","fechaEnvio"],envios)
     def borrarEnvioByID(self, idEnvio):
         return self.__private_servicio.borrarById("comiendohastaloscodos","tblEnvios",[idEnvio])

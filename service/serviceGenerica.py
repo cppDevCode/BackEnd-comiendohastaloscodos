@@ -14,8 +14,8 @@ class MetodosBD:
             for key in llaves:
                 lista = lista +(variable[key],)
             valores.append(lista)
-        baseDatos.agregoRegistros(tabla,campos,valores,len(llaves),baseDeDatos)    
-        baseDatos.cierroConeccion()
+        return baseDatos.agregoRegistros(tabla,campos,valores,len(llaves),baseDeDatos)    
+        #baseDatos.cierroConeccion()
 
     def getItemsBD(self,baseDeDatos,tabla,celdas,llaves,valorBuscado,columnaABuscar):
         baseDatos = rDB.baseDeDatos()

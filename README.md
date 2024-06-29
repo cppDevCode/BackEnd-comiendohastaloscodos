@@ -20,3 +20,9 @@ JSON en el raiz del proyecto:
     "usuario": "usuario",
     "contrasena": "contraseña"
 }
+
+## HTTP CODES
+
+200 : OK
+201 : Creado
+499 : Error

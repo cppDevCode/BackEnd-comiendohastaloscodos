@@ -4,7 +4,7 @@ class PreciosService:
     __private_servicio = serviceGenerica.MetodosBD()
 
     def agregarPrecio (self, precios):
-        self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblPrecio","`idPlato`,`precio`,`vigencia`",
+        return self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblPrecio","`idPlato`,`precio`,`vigencia`",
                                                 ["idPlato","precio","vigencia"],precios)
     
     def getPrecioByIdPlato (self,idPlato):

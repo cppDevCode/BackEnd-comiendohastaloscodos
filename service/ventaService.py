@@ -6,7 +6,7 @@ class VentaService:
     def agregoVentas(self,ventas):
         if type(ventas) != list:
             ventas = [ventas]
-        self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblVentas","`idCliente`,`factura`,`fecha`,`idPlato`,`cantidad`,`valorUnitario`",
+        return self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblVentas","`idCliente`,`factura`,`fecha`,`idPlato`,`cantidad`,`valorUnitario`",
                                                 ["idCliente","factura","fecha","idPlato","cantidad","valorUnitario"],ventas)
     
     def getVentas(self,idCliente):

@@ -37,12 +37,12 @@ class AppFlask:
         elif request.method == 'POST':
             if request.is_json:
                 if type(request.get_json()) == dict:
-                    clienteS.agregarCliente([request.get_json()])   
+                    return clienteS.agregarCliente([request.get_json()])   
                 else:
-                    clienteS.agregarCliente(request.get_json())
+                    return clienteS.agregarCliente(request.get_json())
             else:
                 return (jsonify({"statusCode": 490,"error": "No se recibio un Archivo JSON"})), 490
-            return (jsonify({"statusCode": 201,"error": ""})), 201
+
         elif request.method == 'DELETE':
             #127.0.0.1/cliente?borrarid=150
             idCliente = request.args.get('borrarid',default=None,type=int)
@@ -61,9 +61,9 @@ class AppFlask:
             return enviosS.getEnviosByIDCliente([idCliente])
         elif request.method == 'POST':
             if request.is_json:
-                enviosS.postEnvios(request.get_json())
-            else:return (jsonify({"statusCode": 490,"error": "No se recibio un Archivo JSON"})), 490
-            return (jsonify({"statusCode": 201,"error": ""})), 201
+                return enviosS.postEnvios(request.get_json())
+            else: return (jsonify({"statusCode": 490,"error": "No se recibio un Archivo JSON"})), 490
+            
         elif request.method == 'DELETE':
             #127.0.0.1/envios?borrarid=150
             idEnvio = request.args.get('borrarid',default=None,type=int)

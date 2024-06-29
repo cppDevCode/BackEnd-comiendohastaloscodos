@@ -8,7 +8,7 @@ class ReservaService:
                                                   ["id","idCliente","cantidadPersonas","fecha","horario"], [idCliente],"idCliente")
     
     def agregarReserva(self,reservas):
-        self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblReserva","`idCliente`,`cantidadPersonas`,`fecha`,`horario`",
+        return self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblReserva","`idCliente`,`cantidadPersonas`,`fecha`,`horario`",
                                                 ["idCliente","cantidadPersonas","fecha","horario"],reservas)
         
     def borrarReservaByID(self,idReserva):

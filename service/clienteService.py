@@ -5,7 +5,7 @@ class ClienteService:
     __private_servicio = serviceGenerica.MetodosBD()
 
     def agregarCliente (self,cliente):
-        self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblClientes",
+        return self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblClientes",
                                                 "`nombre`,`apellido`,`email`,`telefono`,`direccion`,`piso`,`departamento`,`ciudad`,`provincia`,`pais`,`carnivoro`,`celiaco`,`vegano`,`vegetariano`,`contrasena`",
                                                 ["nombre","apellido","email","telefono","direccion","piso","departamento","ciudad","provincia",
                                                  "pais","carnivoro","celiaco","vegano","vegetariano","contrasena"],cliente)

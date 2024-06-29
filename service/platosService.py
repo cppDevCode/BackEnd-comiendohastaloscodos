@@ -7,7 +7,7 @@ class PlatosService:
     __private_servicio = serviceGenerica.MetodosBD()
 
     def agregoPlato (self,platos):
-        self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblPlatos", "`nombre`,`descripcion`,`imgRuta`,`tipo`",
+        return self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblPlatos", "`nombre`,`descripcion`,`imgRuta`,`tipo`",
                                                 ["nombre","descripcion","imgRuta","tipo"],platos)
  
     def getPlatoByID(self,idPlato):
