@@ -1,5 +1,8 @@
-import service.serviceGenerica as serviceGenerica
+#Importacion de Libs
 from flask import jsonify
+#Importacion de modulo
+import service.serviceGenerica as serviceGenerica
+
 
 class ClienteService:
     __private_servicio = serviceGenerica.MetodosBD()
@@ -17,12 +20,13 @@ class ClienteService:
 
     def validoLogin(self,email,contrasena):
         resultado=self.__private_servicio.getItemsBD("comiendohastaloscodos","tblClientes","`id`,`email`,`contrasena`,`nombre`",["id","email","contrasena","nombre"],[email],"email")
-        if resultado[1] == 499:
-            return (jsonify({"statusCode": 490,"error":"Usuario/Contraseña Erroneo"})), 490
+        print(resultado)
+        if resultado[1] == 492:
+            return (jsonify({"statusCode": 494,"error":"Usuario/Contraseña Erroneo"})), 494
         elif resultado[0]["contrasena"] == contrasena:
             return (jsonify({"statusCode": 200,"usuario":resultado[0]["nombre"],"id":resultado[0]["id"]})), 200
         else:
-            return (jsonify({"statusCode": 490,"error":"Usuario/Contraseña Erroneo"})), 490
+            return (jsonify({"statusCode": 494,"error":"Usuario/Contraseña Erroneo"})), 494
 
 
     def deleteCliente(self,id):

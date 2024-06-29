@@ -13,6 +13,10 @@ class baseDeDatos:
 
 
     def __init__(self, hostDb="127.0.0.1"):
+        '''
+        Inicializa y conecta al hostDb usando el usuario y contraseña almacenado en el 
+        archivo setting.json
+        '''
         try:
             with open("./setting.json",'r') as archivo:
                 self.__private_datosConeccion = load(archivo)
@@ -38,24 +42,35 @@ class baseDeDatos:
         self.__private_cursor.execute('CREATE TABLE IF NOT EXISTS ' + nombreBaseDatos + '.tblPrecio (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, idPlato INT UNSIGNED NOT NULL, precio DECIMAL(15,2) NOT NULL, vigencia DATE NOT NULL,	CONSTRAINT `fk_idPlato2` FOREIGN KEY (idPlato) REFERENCES tblPlatos (id) ON DELETE CASCADE ON UPDATE RESTRICT)')
         self.__private_cursor.execute('CREATE TABLE IF NOT EXISTS ' + nombreBaseDatos + '.tblVentas (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, idCliente INT UNSIGNED NOT NULL, factura VARCHAR(12) NOT NULL, fecha DATE NOT NULL, idPlato INT UNSIGNED NOT NULL,cantidad INT UNSIGNED NOT NULL, valorUnitario DECIMAL(15,2) NOT NULL, CONSTRAINT `fk_idCliente2` FOREIGN KEY (idCliente) REFERENCES tblClientes (id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT `fk_idPlato3` FOREIGN KEY (idPlato) REFERENCES tblPlatos (id) ON DELETE CASCADE ON UPDATE RESTRICT)')
         self.__private_cursor.execute('CREATE TABLE IF NOT EXISTS ' + nombreBaseDatos + '.tblEnvios (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, idVentas INT UNSIGNED NOT NULL, idCliente INT UNSIGNED NOT NULL,direccionEnvio VARCHAR(150) NOT NULL, fechaEnvio DATE NOT NULL, CONSTRAINT `fk_idCliente3` FOREIGN KEY (idCliente) REFERENCES tblClientes (id) ON DELETE CASCADE ON UPDATE RESTRICT, CONSTRAINT `fk_idVentas` FOREIGN KEY (idVentas) REFERENCES tblVentas (id) ON DELETE CASCADE ON UPDATE RESTRICT)')
+
+    def getCantidadRegistrosTabla (self, nombreBaseDatos,nombreTabla):
+            self.__private_cursor.execute("USE " + nombreBaseDatos)
+            consulta = f'SELECT COUNT(*) FROM {nombreTabla}'
+            self.__private_cursor.execute(consulta)
+            return self.__private_cursor.fetchall()[0][0]
+            
     
-    def agregoRegistros(self, tabla, campos, valores,cantValores,nombreBaseDatos):
+    def agregoRegistros(self, tabla, campos, valores,cantValores,nombreBaseDatos,prueba=False):
         try:
             self.__private_cursor.execute("USE " + nombreBaseDatos)
             consulta ="INSERT INTO "+ tabla + " (" + campos + ") VALUES (" + ("%s, "*cantValores)[:-2] + ")"
             self.__private_cursor.executemany(consulta,valores)
             self.__private_coneccion.commit() 
-            return jsonify({"statusCode":201,"error":""}), 499
+            if not prueba:
+                return jsonify({"statusCode":201,"error":""}), 201
             print(f"Registros Agregados: {self.__private_cursor.rowcount}")
-            self.cierroConeccion()
         except mysql.Error as e: 
                 #Error Code 1062 = Mail duplicado
                 if e.errno == 1062:
                     self.cierroConeccion()
-                    return jsonify({"statusCode":499,"error":"Usuario ya existente (1062)"}), 499
+                    return jsonify({"statusCode":491,"error":"Usuario ya existente (1062)"}), 491
                 else:
                     self.cierroConeccion()
-                    return jsonify({"statusCode":499,"error":e.msg + "(" + e.errno +")"}), 499
+                    try:
+                        return jsonify({"statusCode":492,"error": f"{e.msg} ( {e.errno}) "}), 492
+                    except:
+                        print(e)
+                        return jsonify({"statusCode":491,"error": "Error en sintaxis de BBDD"}), 491
 
         
 
@@ -71,9 +86,11 @@ class baseDeDatos:
         try:
             self.__private_cursor.execute(consulta,id)
             self.__private_coneccion.commit()
+            self.cierroConeccion()
+            return jsonify({"statusCode":201,"error":""}), 201
         except mysql.Error as e:
             print(e)
-            return e
+            return jsonify({"statusCode":492,"error":e.msg + "(" + e.errno +")"}), 492
     
     def borrarRegistroByID(self,tabla,nroID,nombreBaseDatos):
         self.__private_cursor.execute("USE " + nombreBaseDatos)
@@ -82,12 +99,12 @@ class baseDeDatos:
             self.__private_cursor.execute(consulta,nroID)
             self.__private_coneccion.commit()
             if self.__private_cursor.rowcount == 0:
-                return "No se ha encontrado registro con ID=" + str(nroID[0])
+                return jsonify({"statusCode": 493,"error":"No se ha encontrado registro con ID=" + str(nroID[0])}), 493
             else:
-                return ""
+                return jsonify({"statusCode": 200,"error":""}), 200
         except mysql.Error as e:
             print(e)
-            return e
+            return jsonify({"statusCode":492,"error":e.msg + "(" + e.errno +")"}), 492
         
     def listar(self,tabla,nombreBaseDatos,campos):
         self.__private_cursor.execute("USE " + nombreBaseDatos)
@@ -96,7 +113,7 @@ class baseDeDatos:
             self.__private_cursor.execute(consulta)
             return self.__private_cursor.fetchall()
         except mysql.Error as e:
-            return e
+            return jsonify({"statusCode":492,"error":e.msg + "(" + e.errno +")"}), 492
     
     def cierroConeccion(self):
         self.__private_coneccion.close()

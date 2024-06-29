@@ -20,14 +20,14 @@ class MetodosBD:
                 lista = lista +(variable[key],)
             valores.append(lista)
         return baseDatos.agregoRegistros(tabla,campos,valores,len(llaves),baseDeDatos)    
-        #baseDatos.cierroConeccion()
+        
 
     def getItemsBD(self,baseDeDatos,tabla,celdas,llaves,valorBuscado,columnaABuscar):
         baseDatos = rDB.baseDeDatos() #Instancio la clase de la capa de coneccion a BBDD
         resultado = baseDatos.getRegistroBy(tabla,celdas,valorBuscado,columnaABuscar,baseDeDatos)
         if resultado == []:
             baseDatos.cierroConeccion()
-            return (jsonify({"statusCode": 499,"error": "No se encontraron resultados en la DB"})), 499
+            return (jsonify({"statusCode": 492,"error": "No se encontraron resultados en la DB"})), 492
         else:
             #Genero Str JSON para el envio
             jsonFinal = []
@@ -55,19 +55,16 @@ class MetodosBD:
     def borrarById(self,nomBaseDatos,tabla,id):
         baseDatos = rDB.baseDeDatos()
         resultado = baseDatos.borrarRegistroByID(tabla,id,nomBaseDatos)
-        if resultado == "":
-            baseDatos.cierroConeccion()
-            return (jsonify({"statusCode": 200,"error": ""})), 200
-        else:
-            baseDatos.cierroConeccion()
-            return (jsonify({"statusCode": 499,"error": str(resultado)})), 499
+        baseDatos.cierroConeccion()
+        return resultado
+        
         
     def listar(self,nomBaseDatos,tabla,campos,llaves):
         baseDatos = rDB.baseDeDatos()
         resultado = baseDatos.listar(tabla,nomBaseDatos,campos)
         if resultado == "":
             baseDatos.cierroConeccion()
-            return (jsonify({"statusCode": 499,"error": "Sin resultados"})), 499
+            return resultado
         else:
             jsonFinal = []
             
@@ -91,11 +88,5 @@ class MetodosBD:
     
     def modificarByID(self,nombreBaseDatos,tabla, id, modificaciones):
         repositorio = rDB.baseDeDatos()
-        resultado = repositorio.editarRegistroByID(nombreBaseDatos,tabla,modificaciones,[id])
+        return repositorio.editarRegistroByID(nombreBaseDatos,tabla,modificaciones,[id])
         
-        if resultado == None:
-            repositorio.cierroConeccion()
-            return (jsonify({"statusCode": 200,"error": ""})), 200
-        else:
-            repositorio.cierroConeccion()
-            return (jsonify({"statusCode": 490,"error":resultado})), 490

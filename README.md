@@ -3,7 +3,7 @@
 Ofrece soporte de persistencia y consulta de datos a base de datos relacional mysql sin ORM
 
 
-### Pre Requisitos
+### Requisitos
 * Python 3.8+
 * flask
 * flask-cors
@@ -14,15 +14,21 @@ Ofrece soporte de persistencia y consulta de datos a base de datos relacional my
 
 ### Configuracion de Coneccion a Base de Datos
 
-JSON en el raiz del proyecto:
+JSON en el raiz del proyecto setting.json:
 
 {
     "usuario": "usuario",
     "contrasena": "contraseña"
 }
 
-## HTTP CODES
+Al iniciar el Server al crearse las tablas se crean automaticamente datos en la tabla productos y precios para hacer las pruebas.
 
-200 : OK
-201 : Creado
-499 : Error
+### HTTP CODES
+
+* 200 OK
+* 201 Creado/Modificado
+* 490 No se recibio un Archivo JSON
+* 491 Usuario ya existente (1062)
+* 492 Error en consulta con BBDD
+* 493 No se ha encontrado registro con ID=[NRO_ID]
+* 494 Usuario/Contraseña Erroneo

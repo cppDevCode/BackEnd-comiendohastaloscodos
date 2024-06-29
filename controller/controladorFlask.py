@@ -50,7 +50,7 @@ class AppFlask:
                 else:
                     return clienteS.agregarCliente(request.get_json())
             else:
-                return (jsonify({"statusCode": 499,"error": "No se recibio un Archivo JSON"})), 499
+                return (jsonify({"statusCode": 490,"error": "No se recibio un Archivo JSON"})), 490
         elif request.method == 'DELETE':
             #127.0.0.1/cliente?borrarid=150
             idCliente = request.args.get('borrarid',default=None,type=int)

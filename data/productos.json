@@ -1,0 +1,98 @@
+[
+    { 
+        "nombre": "Pollo con chanpignones", 
+        "descripcion": " Plato de pollo cocinado con champiñones frescos, sazonado y cocido a la perfección para un sabor delicioso y una textura suculenta.",
+        "imgRuta": "./img/platos/polloCChampignones.jpg", 
+        "tipo":"carnivoro" 
+    },   
+    { 
+        "nombre": "Pollo y Vegetales", 
+        "descripcion":"Plato de pollo acompañado de una variedad de vegetales frescos, cocinados al punto para resaltar sus sabores naturales y crear un plato nutritivo y satisfactorio.", 
+        "imgRuta": "./img/platos/polloyvegetales.jpeg", 
+        "tipo":"carnivoro" 
+        },   
+    { 
+        "nombre": "Bife Rustico", 
+        "descripcion":"Jugoso corte de carne asada, sazonado con hierbas y especias, con un toque de rusticidad que resalta su sabor auténtico y su textura tierna.",
+        "imgRuta": "./img/platos/bifeRustico.jpg", 
+        "tipo":"carnivoro" 
+        },
+       { 
+        "nombre": "Ensalada Rissiotti", 
+        "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.", 
+        "imgRuta": "./img/platos/ensaladaRissiotti.jpg", 
+        "tipo":"vegano" 
+        },   
+        { 
+            "nombre": "Dulcecito", 
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.", 
+            "imgRuta": "./img/platos/dulcecito.jpg", 
+            "tipo":"vegetariano" 
+        },   
+        { 
+            "nombre": "Gringo Fest!", 
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.",
+            "imgRuta": "./img/platos/gringoFest.jpg", 
+            "tipo":"carnivoro" 
+        },   
+        { 
+            "nombre": "Asian Fest!",
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.", 
+            "imgRuta": "./img/platos/asianfest.jpg", 
+            "tipo":"carnivoro" 
+        },   
+        { 
+            "nombre": "Veggie Crunch!",
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.", 
+            "imgRuta": "./img/platos/VeggieCrunch.jpg", 
+            "tipo":"vegano" 
+        },   
+        { 
+            "nombre": "Madrid Potato",
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.",
+            "imgRuta": "./img/platos/madrid.webp", 
+            "tipo":"vegetariano" 
+        },   
+        { 
+            "nombre": "Con Sabor a Poco!",
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.", 
+            "imgRuta": "./img/platos/saborPoco.jpeg", 
+            "tipo":"carnivoro" 
+        },   
+        { 
+            "nombre": "Le ponemos de todo!",
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.", 
+            "imgRuta": "./img/platos/leponemodetodo.jpeg", 
+            "tipo":"carnivoro" 
+        },   
+        { 
+            "nombre": "Italianita",
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.", 
+            "imgRuta": "./img/platos/italianita.jpg", 
+            "tipo":"vegetariana" 
+        },   
+        { 
+            "nombre": "Criollo",
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.", 
+            "imgRuta": "./img/platos/criollo.webp", 
+            "tipo":"carnivoro" 
+        },   
+        { 
+            "nombre": "Finolli",
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.", 
+            "imgRuta": "./img/platos/finoli.jpeg",  
+            "tipo":"carnivoro" 
+        },   
+        { 
+            "nombre": "Ay mi colesterol!",
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.",
+            "imgRuta": "./img/platos/burguer.jpeg", 
+            "tipo":"carnivoro" 
+        },   
+        { 
+            "nombre": "La Linda",
+            "descripcion":"Mezcla fresca de rúcula, tomates cherry, queso parmesano y vinagreta balsámica, ofreciendo un sabor equilibrado y una experiencia refrescante.", 
+            "imgRuta": "./img/platos/lalinda.jpeg", 
+            "tipo":"carnivoro" 
+        }   
+]
