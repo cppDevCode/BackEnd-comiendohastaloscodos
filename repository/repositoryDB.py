@@ -4,6 +4,9 @@ from flask import jsonify
 from json import load
 
 class baseDeDatos:
+    '''
+    Clase de capa de Coneccion a BBDD
+    '''
     __private_coneccion = None
     __private_cursor = None
     __private_datosConeccion = None
