@@ -12,11 +12,20 @@ class ClienteService:
                                                 "`nombre`,`apellido`,`email`,`telefono`,`direccion`,`piso`,`departamento`,`ciudad`,`provincia`,`pais`,`carnivoro`,`celiaco`,`vegano`,`vegetariano`,`contrasena`",
                                                 ["nombre","apellido","email","telefono","direccion","piso","departamento","ciudad","provincia",
                                                  "pais","carnivoro","celiaco","vegano","vegetariano","contrasena"],cliente)
+    
+    def agregarAdmin (self,cliente):
+        return self.__private_servicio.agregarItemsABD("comiendohastaloscodos","tblClientes",
+                                                "`nombre`,`apellido`,`email`,`telefono`,`direccion`,`piso`,`departamento`,`ciudad`,`provincia`,`pais`,`carnivoro`,`celiaco`,`vegano`,`vegetariano`,`contrasena`,`admin`",
+                                                ["nombre","apellido","email","telefono","direccion","piso","departamento","ciudad","provincia",
+                                                 "pais","carnivoro","celiaco","vegano","vegetariano","contrasena","admin"],cliente)
 
     def getCliente (self, id):
         return self.__private_servicio.getItemsBD("comiendohastaloscodos","tblClientes","*",["id","nombre","apellido",
                                             "email","telefono","direccion","piso","departamento","ciudad","provincia","pais","carnivoro",
                                             "celiaco","vegano","vegetariano","contrasena"],id,"id")
+    
+    def esAdmin (self,id):
+        self.__private_servicio.getItemsBD("comiendohastaloscodos","tblClientes","*",["id","admin"],id,"id")
 
     def validoLogin(self,email,contrasena):
         resultado=self.__private_servicio.getItemsBD("comiendohastaloscodos","tblClientes","`id`,`email`,`contrasena`,`nombre`",["id","email","contrasena","nombre"],[email],"email")

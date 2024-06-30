@@ -1,0 +1,18 @@
+{
+    "nombre":"Codo a Codo",
+    "apellido":"Python",
+    "email":"admin@admin.com",
+    "telefono":"2914754789",
+    "direccion":"Cavallari 124",
+    "piso":2,
+    "departamento":"G",
+    "ciudad":"9 de Julio",
+    "provincia":"Buenos Aires",
+    "pais":"Argentina",
+    "carnivoro":1,
+    "celiaco":0,
+    "vegano":0,
+    "vegetariano":0,
+    "contrasena":"patito957",
+    "admin": 1
+}
