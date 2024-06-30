@@ -25,7 +25,8 @@ class ClienteService:
                                             "celiaco","vegano","vegetariano","contrasena"],id,"id")
     
     def esAdmin (self,id):
-        self.__private_servicio.getItemsBD("comiendohastaloscodos","tblClientes","*",["id","admin"],id,"id")
+        return  self.__private_servicio.getItemsBD("comiendohastaloscodos","tblClientes","`admin`","admin",[id],"id")
+        
 
     def validoLogin(self,email,contrasena):
         resultado=self.__private_servicio.getItemsBD("comiendohastaloscodos","tblClientes","`id`,`email`,`contrasena`,`nombre`",["id","email","contrasena","nombre"],[email],"email")

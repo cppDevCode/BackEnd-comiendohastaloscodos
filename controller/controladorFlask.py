@@ -43,6 +43,11 @@ class AppFlask:
             idCliente = request.args.get('idcliente',default=None,type=int)
             if idCliente != None:
                 return clienteS.getCliente([idCliente])
+            else:
+                #127.0.0.1/cliente?esadmin=ID
+                esAdmin = request.args.get('esadmin',default=None,type=int)
+                if esAdmin != None:
+                    return clienteS.esAdmin(esAdmin)
         elif request.method == 'POST':
             if request.is_json:
                 if type(request.get_json()) == dict:
@@ -142,7 +147,7 @@ class AppFlask:
                 else:
                     traerTodos = request.args.get('traertodos',default=None,type=int)
                     if traerTodos == 1:
-                          return preciosS.listar()
+                        return preciosS.listar()
         elif request.method == 'POST':
             if request.is_json:
                 preciosS.agregarPrecio(request.get_json())
