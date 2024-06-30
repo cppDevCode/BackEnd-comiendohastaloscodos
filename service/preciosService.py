@@ -19,3 +19,6 @@ class PreciosService:
     def editarPrecioByID(self,id,datos):
         modificaciones = "idPlato=" + str(datos["idPlato"]) + ",precio=" + str(datos["precio"]) + ",vigencia='" + datos["vigencia"] + "'"
         return self.__private_servicio.modificarByID("comiendohastaloscodos","tblPrecio",id,modificaciones)
+    
+    def getUltimoID(self):
+        return self.__private_servicio.getUltimoID("comiendohastaloscodos")

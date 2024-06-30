@@ -136,9 +136,13 @@ class AppFlask:
             if idPlato != None:
                 return preciosS.getPrecioByIdPlato(idPlato)
             else:
-              traerTodos = request.args.get('traertodos',default=None,type=int)
-              if traerTodos == 1:
-                  return preciosS.listar()
+                getultimoid = request.args.get('getultimoid',default=None,type=int)
+                if getultimoid != None:
+                    return preciosS.getUltimoID()
+                else:
+                    traerTodos = request.args.get('traertodos',default=None,type=int)
+                    if traerTodos == 1:
+                          return preciosS.listar()
         elif request.method == 'POST':
             if request.is_json:
                 preciosS.agregarPrecio(request.get_json())

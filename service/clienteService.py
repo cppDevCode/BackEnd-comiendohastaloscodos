@@ -20,7 +20,6 @@ class ClienteService:
 
     def validoLogin(self,email,contrasena):
         resultado=self.__private_servicio.getItemsBD("comiendohastaloscodos","tblClientes","`id`,`email`,`contrasena`,`nombre`",["id","email","contrasena","nombre"],[email],"email")
-        print(resultado)
         if resultado[1] == 492:
             return (jsonify({"statusCode": 494,"error":"Usuario/Contraseña Erroneo"})), 494
         elif resultado[0]["contrasena"] == contrasena:

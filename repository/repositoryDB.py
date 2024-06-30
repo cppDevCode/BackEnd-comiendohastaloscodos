@@ -10,6 +10,7 @@ class baseDeDatos:
     __private_coneccion = None
     __private_cursor = None
     __private_datosConeccion = None
+    __private_ultimoID = 0
 
 
     def __init__(self, hostDb="127.0.0.1"):
@@ -34,6 +35,13 @@ class baseDeDatos:
     def creoBaseDeDatos(self,nombreBaseDatos):
         self.__private_cursor.execute("CREATE DATABASE IF NOT EXISTS " + nombreBaseDatos)
 
+    def getUltimoID (self,db):
+        self.__private_cursor.execute('USE ' + db)
+        consulta = 'SELECT id FROM tblPlatos ORDER BY id DESC LIMIT 1'
+        self.__private_cursor.execute(consulta)
+        self.__private_ultimoID = self.__private_cursor.fetchone()[0]
+        return self.__private_ultimoID
+
     def creoTablas (self,nombreBaseDatos):
         self.__private_cursor.execute('CREATE TABLE IF NOT EXISTS ' + nombreBaseDatos + '.tblClientes (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, nombre VARCHAR(80) NOT NULL, apellido VARCHAR(50) NOT NULL, email VARCHAR(120) NOT NULL UNIQUE, telefono VARCHAR(20), direccion VARCHAR(50) NOT NULL, piso INT, departamento VARCHAR(2), ciudad VARCHAR(40) NOT NULL, provincia VARCHAR(50) NOT NULL, pais VARCHAR(40) NOT NULL,carnivoro BOOL, celiaco BOOL, vegano BOOL, vegetariano BOOL, contrasena VARCHAR(100) NOT NULL)')
         self.__private_cursor.execute('CREATE TABLE IF NOT EXISTS ' + nombreBaseDatos + '.tblReserva (id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, idCliente INT UNSIGNED NOT NULL, cantidadPersonas INT NOT NULL, fecha DATE NOT NULL, horario VARCHAR(20) NOT NULL,CONSTRAINT `fk_idCliente` FOREIGN KEY (idCliente) REFERENCES tblClientes (id)	ON DELETE CASCADE ON UPDATE RESTRICT)')
@@ -56,9 +64,11 @@ class baseDeDatos:
             consulta ="INSERT INTO "+ tabla + " (" + campos + ") VALUES (" + ("%s, "*cantValores)[:-2] + ")"
             self.__private_cursor.executemany(consulta,valores)
             self.__private_coneccion.commit() 
+            
+            
             if not prueba:
                 return jsonify({"statusCode":201,"error":""}), 201
-            print(f"Registros Agregados: {self.__private_cursor.rowcount}")
+            print(f"Registros Agregados: {self.__private_cursor.rowcount()}")
         except mysql.Error as e: 
                 #Error Code 1062 = Mail duplicado
                 if e.errno == 1062:
