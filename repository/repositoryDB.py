@@ -68,7 +68,7 @@ class baseDeDatos:
             
             if not prueba:
                 return jsonify({"statusCode":201,"error":""}), 201
-            print(f"Registros Agregados: {self.__private_cursor.rowcount()}")
+            print(f"Registros Agregados: {self.__private_cursor.rowcount}")
         except mysql.Error as e: 
                 #Error Code 1062 = Mail duplicado
                 if e.errno == 1062:
